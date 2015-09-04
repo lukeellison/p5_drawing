@@ -16,6 +16,15 @@ class pen{
 		c = color(random(255),random(255),random(255));
 	}
 
+	pen(int startx, int starty, float starta){
+		x = startx;
+		y = starty;
+		a = starta;
+		r = random(1.5);
+		dir = true;
+		c = color(random(255),random(255),random(255));
+	}
+
 	bool outOfBound(){
 		if(x<=-5 || x>=width+5) return true;
 		if(y<=-5 || y>=height+5) return true;
@@ -64,17 +73,23 @@ void draw() {
 }
 
 void newStartingPen(){
-	bool side = (int)random(2);
+	int side = (int)random(2);
+	int side2 = (int)random(2);
 	int startingx;
 	int startingy;
+	float a;
 	if(side){
-		startingx = ((int)random(2)) * width;
+		if(side2) a = random(45) + 247.5; //Right side
+		else a = random(45) + 67.5; //Left side
+		startingx = (side2) * width;
 		startingy = random(height);
 	}
 	else{
-		startingy = ((int)random(2)) * height;
+		if(side2) a = random(45) + 157.5; //Bottom
+		else a = random(45) - 22.5; //Top
+		startingy = (side2) * height;
 		startingx = random(width);
 	};
 
-	pens[0] = new pen(startingx, startingy);	
+	pens[0] = new pen(startingx, startingy, a);	
 }
